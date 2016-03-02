@@ -59,12 +59,17 @@ RUN a2enmod rewrite proxy proxy_http
 ########
 # Zray
 ########
-COPY zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz /tmp/zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz
+ENV DOWNLOAD_PREFIX "http://repos.zend.com/zend-server/early-access/zray-tech-preview/"
+ENV DOWNLOAD_REVISON 104202
+ENV TAR zray-php-${DOWNLOAD_REVISON}-php5.6.17-linux-debian7-amd64.tar.gz
+
+RUN wget -nv ${DOWNLOAD_PREFIX}/$TAR -O /tmp/$TAR
+#COPY zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz /tmp/zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz
 RUN  cd /tmp \
-  && tar xvfz zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz \
-  && cp -R zray-php-102775-php5.6.15-linux-debian7-amd64/zray /opt/zray \
+  && tar xvfz $TAR \
+  && cp -R $TAR /opt/zray \
   && chown -R dockerdev:staff /opt/zray \
-  && rm -rf zray-php5.6-Ubuntu-14.04-x86_64.tar.gz zray-php-102775-php5.6.15-linux-debian7-amd64
+  && rm -rf $TAR zray-php-*-php5.6.15-linux-debian7-amd64
 
 # Configure
 COPY php.ini /usr/local/etc/php/php.ini
@@ -79,10 +84,10 @@ RUN a2ensite zray-ui.conf
 #Zray Plugins
 ########################
 #opcache
-RUN wget -O /tmp/zray-opcache-plugin.zip https://api-plugins.zend.com/download.php?id=121 \
-    && unzip /tmp/zray-opcache-plugin.zip -d /opt/zray/runtime/var/plugins/
+#RUN wget -O /tmp/zray-opcache-plugin.zip https://api-plugins.zend.com/download.php?id=121 \
+#    && unzip /tmp/zray-opcache-plugin.zip -d /opt/zray/runtime/var/plugins/
 
-RUN unzip /opt/zray/runtime/var/plugins/Composer.zip -d /opt/zray/runtime/var/plugins/Composer
+#RUN unzip /opt/zray/runtime/var/plugins/Composer.zip -d /opt/zray/runtime/var/plugins/Composer
 
 RUN chown -R dockerdev:staff /opt/zray && chmod g+rw /opt/zray
 
