@@ -63,13 +63,12 @@ ENV DOWNLOAD_PREFIX "http://repos.zend.com/zend-server/early-access/zray-tech-pr
 ENV DOWNLOAD_REVISON 104202
 ENV TAR zray-php-${DOWNLOAD_REVISON}-php5.6.17-linux-debian7-amd64.tar.gz
 
-RUN wget -nv ${DOWNLOAD_PREFIX}/$TAR -O /tmp/$TAR
+RUN wget -nv ${DOWNLOAD_PREFIX}/${TAR} -O /tmp/${TAR}
 #COPY zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz /tmp/zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz
 RUN  cd /tmp \
-  && tar xvfz $TAR \
-  && cp -R $TAR /opt/zray \
+  && tar xzvf ${TAR} -C /opt --strip-components 1 \
   && chown -R dockerdev:staff /opt/zray \
-  && rm -rf $TAR zray-php-*-php5.6.15-linux-debian7-amd64
+  && rm -rf ${TAR}
 
 # Configure
 COPY php.ini /usr/local/etc/php/php.ini
