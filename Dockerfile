@@ -67,7 +67,7 @@ RUN mkdir -p /opt/zray
 RUN wget -nv ${DOWNLOAD_PREFIX}/${TAR} -O /tmp/${TAR}
 #COPY zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz /tmp/zray-php-102775-php5.6.15-linux-debian7-amd64.tar.gz
 RUN  cd /tmp \
-  && tar xzvf ${TAR} -C /opt --strip-components 1 \
+  && tar xzvf ${TAR} -C /opt/zray --strip-components 1 \
   && chown -R dockerdev:staff /opt/zray \
   && rm -rf ${TAR}
 
