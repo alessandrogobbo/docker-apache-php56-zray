@@ -49,6 +49,7 @@ RUN buildDeps=" \
 RUN pear config-set php_ini /usr/local/etc/php/php.ini
 RUN pecl config-set php_ini /usr/local/etc/php/php.ini
 RUN yes '' | pecl install apcu-4.0.10
+RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
 
 ##########
