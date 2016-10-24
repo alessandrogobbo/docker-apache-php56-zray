@@ -61,7 +61,7 @@ RUN a2enmod rewrite proxy proxy_http
 # Zray
 ########
 ENV DOWNLOAD_PREFIX "http://repos.zend.com/zend-server/early-access/zray-tech-preview/"
-ENV DOWNLOAD_REVISON 106540
+ENV DOWNLOAD_REVISON 108844
 ENV TAR zray-php-${DOWNLOAD_REVISON}-php5.6.17-linux-debian7-amd64.tar.gz
 
 RUN mkdir -p /opt/zray
